@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.SupplierRegisterMapper" >
+
+   	 <insert id="insert" parameterType="com.lebango.bean.SupplierRegister" >
+        INSERT INTO
+        		supplier_register 
+        		(supplier_id, status, description, is_resubmit, created_at, updated_at)
+        VALUES
+        		( #{supplier_id,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{description}, #{is_resubmit}, #{created_at}, #{updated_at})
+    </insert>
+        
+    <update id="update" parameterType="com.lebango.bean.SupplierRegister" >
+        UPDATE 
+   			supplier_register
+   		SET 
+   			supplier_id = #{supplier_id}, status = #{status}, description = #{description}, is_resubmit = #{is_resubmit}, updated_at = #{updated_at}
+  		WHERE
+  			id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="com.lebango.bean.SupplierRegister" >
+    		DELETE FROM
+    			supplier_register
+    		WHERE
+    			id = #{id}
+    </delete>
+    
+	<select id="getBySupplier" parameterType="int" resultType="com.lebango.bean.SupplierRegister">
+		SELECT 
+			* 
+		FROM 
+			supplier_register 
+		WHERE 
+			supplier_id = #{supplier_id} 
+		AND
+			deleted_at IS NOT NULL
+	</select>
+   
+   	<select id="getAll" parameterType="int" resultType="com.lebango.bean.SupplierRegister">
+		SELECT 
+			* 
+		FROM 
+			supplier_register 
+		WHERE 
+			deleted_at IS NOT NULL
+	</select>
+	
+	<select id="getMaxId" resultType="int">
+		SELECT 
+    			MAX(id) as max_id 
+    		FROM 
+    			supplier_register 
+	</select>
+</mapper>

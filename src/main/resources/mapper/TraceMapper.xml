@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.TraceMapper" >
+
+	<select id="getAll" resultType="com.lebango.bean.Trace">
+		SELECT 
+			* 
+		FROM 
+			traces
+	</select>
+    
+	<select id="getBySupplier" parameterType="int" resultType="com.lebango.bean.Trace">
+		SELECT 
+			* 
+		FROM 
+			traces
+		WHERE
+			supplier_id = #{supplier_id}
+	</select>
+	
+	<select id="checkExisting" parameterType="com.lebango.bean.Trace" resultType="int">
+		SELECT 
+			count(*)
+		FROM 
+			traces
+		WHERE
+			start_location = #{start_location}
+		AND
+			end_location = #{end_location}
+	</select>
+	
+	<insert id="insert" parameterType="com.lebango.bean.Trace" >
+        INSERT INTO
+        		traces 
+        		(supplier_id, start_location, end_location, created_at, updated_at)
+        VALUES 
+        		( #{supplier_id}, #{start_location}, #{end_location}, #{created_at}, #{updated_at})
+    </insert>
+    
+    <select id="getByStart" parameterType="int" resultType="com.lebango.bean.Trace">
+		SELECT 
+			* 
+		FROM 
+			traces
+		WHERE
+			start_location = #{start_location}
+	</select>
+	
+	<select id="getByEnd" parameterType="int" resultType="com.lebango.bean.Trace">
+		SELECT 
+			* 
+		FROM 
+			traces
+		WHERE
+			end_location = #{end_location}
+	</select>
+	
+	<select id="getByStartAndEnd" parameterType="com.lebango.bean.Trace" resultType="com.lebango.bean.Trace">
+		SELECT 
+			* 
+		FROM 
+			traces
+		WHERE
+			start_location = #{start_location}
+		AND
+			end_location = #{end_location}
+	</select>
+	
+</mapper>

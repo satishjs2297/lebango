@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.TourMapper" >
+    <!--    result maps     -->
+    <!-- 
+	<resultMap id="podcastsMap" type="Podcast" >
+		<id column="podcast_id" property="podcastId"  />
+		<result column="url" property="url" />
+		<result column="rating" property="rating" />
+		<result column="numberRatings" property="number_ratings" />
+		<result column="number_visitors" property="numberOfVisitors" />
+		<result column="DESCRIPTION" property="description" />
+		<result column="PODCAST_IMAGE_URL" property="urlOfImageToDisplay" />
+		<result column="TITLE" property="title" />
+		<result column="last_episode_url" property="lastEpisodeMediaUrl" />
+		<result column="title_in_url" property="titleInUrl" />
+		<result column="publication_date" property="publicationDate"/>
+	</resultMap>
+	 -->
+	 
+    <insert id="insert" parameterType="com.lebango.bean.Tour" >
+        INSERT INTO
+        		tours 
+        		(tour_code, booking_id, supplier_id, agent_id, status, assign_car_array, assign_guide_array, description, 
+        			invoice_created, agent_review_content, agent_review_star, supplier_review_content, supplier_review_star,
+        			created_at, updated_at)
+        VALUES 
+        		( #{tour_code}, #{booking_id}, #{supplier_id}, #{agent_id}, #{status}, #{assign_car_array}, #{assign_guide_array}, #{description},
+        		 #{invoice_created}, #{agent_review_content}, #{agent_review_star}, #{supplier_review_content}, #{supplier_review_star},
+        		 #{created_at}, #{updated_at})
+    </insert>
+    
+	<select id="getUpcomingBookings" parameterType="int" resultType="com.lebango.bean.Tour">
+		SELECT 
+			* 
+		FROM 
+			tours 
+		WHERE
+			supplier_id = #{supplier_id} 
+			AND 
+			status <![CDATA[ < ]]> 6
+	</select>
+	
+	<select id="getTourByBooking" parameterType="int" resultType="com.lebango.bean.Tour">
+		SELECT 
+			* 
+		FROM 
+			tours 
+		WHERE
+			booking_id = #{booking_id} 
+		AND 
+			deleted_at IS NULL	
+	</select>
+	
+	<select id="getTourByCode" parameterType="java.lang.String" resultType="com.lebango.bean.Tour">
+		SELECT 
+			* 
+		FROM 
+			tours 
+		WHERE
+			tour_code = #{tour_code} 
+		AND 
+			deleted_at IS NULL	
+	</select>
+	
+	<select id="getFinishedBookings" parameterType="int" resultType="com.lebango.bean.Tour">
+		SELECT 
+			* 
+		FROM 
+			tours 
+		WHERE
+			supplier_id = #{supplier_id} 
+			AND 
+			status <![CDATA[ >= ]]> 6
+			AND 
+			status <![CDATA[ < ]]> 12
+	</select>
+	<select id="getToursByCarId" parameterType="java.lang.String"
+		resultType="com.lebango.bean.Tour">
+		select * from tours where INSTR(assign_car_array, #{car_id}) <![CDATA[ > ]]> 0 AND deleted_at IS NULL
+	</select>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <mappers>
+  	<mapper resource="mapper/BookingMapper.xml"/>
+  	<mapper resource="mapper/CarHourMapper.xml"/>
+  	<mapper resource="mapper/CardMapper.xml"/>
+  	<mapper resource="mapper/CarMapper.xml"/>
+  	<mapper resource="mapper/DocumentMapper.xml"/>
+  	<mapper resource="mapper/GuideHourMapper.xml"/>
+  	<mapper resource="mapper/GuideMapper.xml"/>
+  	<mapper resource="mapper/InvoiceMapper.xml"/>
+  	<mapper resource="mapper/LocationMapper.xml"/>
+  	<mapper resource="mapper/ManagerSettingMapper.xml"/>
+  	<mapper resource="mapper/MessageMapper.xml"/>
+  	<mapper resource="mapper/RoleMapper.xml"/>
+  	<mapper resource="mapper/SubTraceMapper.xml"/>
+  	<mapper resource="mapper/SupplierRegisterMapper.xml"/>
+  	<mapper resource="mapper/StateMapper.xml"/>
+  	<mapper resource="mapper/TourMapper.xml"/>
+  	<mapper resource="mapper/TraceMapper.xml"/>
+  	<mapper resource="mapper/UserMapper.xml"/>
+  </mappers>
+</configuration>

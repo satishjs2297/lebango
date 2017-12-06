@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.InvoiceMapper" >
+	 
+    <insert id="insert" parameterType="com.lebango.bean.Invoice" >
+        INSERT INTO
+        		invoices 
+        		(invoice_code, booking_id, tour_code, user_id, type, amount, status, method, pay_id, content, service_fee, pay_due_date 
+        		created_at, updated_at)
+        VALUES 
+        		(#{invoice_code}, #{booking_id}, #{tour_code}, #{user_id}, #{type}, #{amount}, #{status}, #{method}, #{pay_id},
+        		 #{content}, #{service_fee}, #{pay_due_date}, #{created_at}, #{updated_at})
+    </insert>
+    
+    <select id="getById" parameterType="int" resultType="com.lebango.bean.Invoice">
+		SELECT 
+			* 
+		FROM 
+			invoices 
+		WHERE 
+			id = #{id}
+	</select>
+    
+	<select id="getBySupplier" parameterType="int" resultType="com.lebango.bean.Invoice">
+		SELECT 
+			* 
+		FROM 
+			invoices 
+		WHERE 
+			user_id = #{supplier_id}
+		AND 
+			type = 2 
+	</select>
+   
+   <select id="getByAgent" parameterType="int" resultType="com.lebango.bean.Invoice">
+		SELECT 
+			* 
+		FROM 
+			invoices 
+		WHERE 
+			user_id = #{agent_id}
+		AND 
+			type = 1
+	</select>
+	
+    <select id="getAll" parameterType="int" resultType="com.lebango.bean.Invoice">
+		SELECT 
+			* 
+		FROM 
+			invoices 
+		WHERE 
+			deleted_at IS NULL 
+	</select>
+	
+	<update id="update" parameterType="com.lebango.bean.Invoice" >
+        UPDATE 
+   			invoices
+   		SET 
+   			invoice_code = #{invoice_code}, booking_id = #{booking_id}, tour_code = #{tour_code}, type = #{type}, user_id = #{user_id}, amount = #{amount}, status = #{status},
+   			 method = #{method}, pay_id = #{pay_id}, content = #{content}, service_fee = #{service_fee}, pay_due_dadte = #{pay_due_date}, updated_at = #{updated_at}
+  		WHERE
+  			id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="com.lebango.bean.Invoice" >
+    		DELETE FROM
+    			invoices
+    		WHERE
+    			id = #{id}
+    </delete>
+    
+</mapper>

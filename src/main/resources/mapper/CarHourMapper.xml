@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.CarHourMapper" >
+	 
+    <insert id="insert" parameterType="com.lebango.bean.CarHour" >
+        INSERT INTO
+        		car_hour 
+        		(car_id, start_time, end_time, tour_id, description, created_at, updated_at)
+        VALUES 
+        		( #{car_id}, #{start_time}, #{end_time}, #{tour_id}, #{description}, #{created_at}, #{updated_at})
+    </insert>
+    
+	<select id="get" parameterType="int" resultType="com.lebango.bean.CarHour">
+		SELECT 
+			* 
+		FROM 
+			car_hour 
+		WHERE 
+			car_id = #{car_id} 
+	</select>
+   
+</mapper>

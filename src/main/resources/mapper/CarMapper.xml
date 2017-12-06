@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.CarMapper" >
+	 
+    <insert id="insert" parameterType="com.lebango.bean.Car" >
+        INSERT INTO
+        		cars 
+        		(number, brand, model, product_year, seat, location_id, supplier_id, 
+        		created_at, updated_at)
+        VALUES 
+        		( #{number}, #{brand}, #{model}, #{product_year}, #{seat}, #{location_id}, #{supplier_id}, #{created_at}, #{updated_at})
+    </insert>
+    
+	<select id="getBySupplier" parameterType="int" resultType="com.lebango.bean.Car">
+		SELECT 
+			* 
+		FROM 
+			cars 
+		WHERE 
+			supplier_id = #{supplier_id} 
+	</select>
+   
+    <select id="getMaxId" resultType="int">
+    		SELECT 
+    			MAX(id) as max_id 
+    		FROM 
+    			cars 
+	</select>
+   
+    <select id="getById" parameterType="int" resultType="com.lebango.bean.Car">
+		SELECT 
+			* 
+		FROM 
+			cars 
+		WHERE 
+			id = #{id} 
+	</select>
+	
+	<select id="getBySupplierAndSeat" parameterType="com.lebango.bean.Car" resultType="com.lebango.bean.Car">
+		SELECT 
+			* 
+		FROM 
+			cars 
+		WHERE 
+			supplier_id = #{supplier_id} 
+		AND
+			seat = #{seat}
+	</select>
+	
+</mapper>

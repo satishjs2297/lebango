@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.GuideHourMapper" >
+	 
+    <insert id="insert" parameterType="com.lebango.bean.GuideHour" >
+        INSERT INTO
+        		guide_hour 
+        		(guide_id, start_time, end_time, tour_id, description, created_at, updated_at)
+        VALUES 
+        		( #{guide_id}, #{start_time}, #{end_time}, #{tour_id}, #{description}, #{created_at}, #{updated_at})
+    </insert>
+    
+    <update id="update" parameterType="com.lebango.bean.GuideHour" >
+        UPDATE 
+   			guide_hour
+   		SET 
+   			guide_id = #{guide_id}, start_time = #{start_time}, end_time = #{end_time}, tour_id = #{tour_id}, description = #{description}, 
+   			updated_at = #{updated_at}
+  		WHERE
+  			id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="com.lebango.bean.GuideHour" >
+    		DELETE FROM
+    			guide_hour
+    		WHERE
+    			id = #{id}
+    </delete>
+    
+	<select id="getGuideHour" parameterType="int" resultType="com.lebango.bean.GuideHour">
+		SELECT 
+			* 
+		FROM 
+			guide_hour 
+		WHERE 
+			guide_id = #{guide_id} 
+	</select>
+   
+</mapper>

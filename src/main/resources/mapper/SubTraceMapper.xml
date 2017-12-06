@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.SubTraceMapper" >
+    
+	<select id="getByParentId" parameterType="int" resultType="com.lebango.bean.SubTrace">
+		SELECT 
+			* 
+		FROM 
+			sub_traces
+		WHERE
+			parent_trace = #{parent_trace}
+	</select>
+	
+	<select id="getBySupplierId" parameterType="int" resultType="com.lebango.bean.SubTrace">
+		SELECT 
+			a.* 
+		FROM 
+			sub_traces a, traces b
+		WHERE
+			b.supplier_id = #{id}
+		AND
+		  	a.parent_trace = b.id
+    </select>
+
+	<select id="getById" parameterType="int" resultType="com.lebango.bean.SubTrace">
+		SELECT 
+			a.* 
+		FROM 
+			sub_traces a
+		WHERE
+			id = #{subtrace_id}
+    </select>
+
+	<insert id="insert" parameterType="com.lebango.bean.SubTrace" >
+        INSERT INTO
+        		sub_traces 
+        		(name, parent_trace, seat_7s, seat_14s, seat_21s, seat_25s, seat_33s, seat_45s, seat_55s, description, created_at, updated_at)
+        VALUES 
+        		( #{name}, #{parent_trace}, #{seat_7s}, #{seat_14s}, 
+        			#{seat_21s}, #{seat_25s}, #{seat_33s}, #{seat_45s}, #{seat_55s}, #{description},
+        		 #{created_at}, #{updated_at})
+    </insert>
+    
+    <update id="update" parameterType="com.lebango.bean.SubTrace" >
+        UPDATE 
+   			sub_traces
+   		SET 
+   			name = #{name}, parent_trace = #{parent_trace}, seat_7s = #{seat_7s}, seat_14s = #{seat_14s},
+   			 seat_21s = #{seat_21s}, seat_25s = #{seat_25s}, seat_33s = #{seat_33s}, seat_45s = #{seat_45s}, seat_55s = #{seat_55s}, 
+   			 description = #{description}, updated_at = #{updated_at}
+  		WHERE
+  			id = #{id}
+    </update>
+    
+    <delete id="delete" parameterType="com.lebango.bean.SubTrace" >
+    		DELETE FROM
+    			sub_traces
+    		WHERE
+    			id = #{id}
+    </delete>
+</mapper>

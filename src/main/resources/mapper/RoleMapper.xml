@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lebango.mapper.RoleMapper" >
+	<select id="loadRoles" resultType="com.lebango.bean.Role">
+		SELECT 
+			* 
+		FROM 
+			role_user 
+	</select>
+</mapper>
