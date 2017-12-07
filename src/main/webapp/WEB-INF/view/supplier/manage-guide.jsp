@@ -256,8 +256,8 @@
                           </c:choose>
                           <td>${model.description}</td>
                           <td>
-                            <a href="viewguide?id=${model.id}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
-                            <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
+                            <a href="view-guide?id=${model.id}" class="btn btn-primary btn-xs"><i class="fa fa-folder"></i> View </a>
+                            <a href="edit-guide?id=${model.id}" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit </a>
                             <a href="javascript:confirmDelete(${model.id});" class="btn btn-danger btn-xs">
                             		<i class="fa fa-pencil"></i> Delete 
                             </a>
@@ -282,7 +282,7 @@
 	       <div class="modal-dialog" style="color:black;">
 	         <div class="modal-content">
 	         	<!-- Delete Form -->
-	           	<form method="POST" action="delete" id="deleteForm">
+	           	<form method="GET" action="delete-guide" id="deleteForm">
 			   		<input type="hidden" id="guide_id" />
 			   	</form>
 			   	<!-- /Delete Form -->

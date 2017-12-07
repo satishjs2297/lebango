@@ -1,6 +1,11 @@
 package com.lebango.viewmodel;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import com.lebango.bean.GuideHour;
+import com.lebango.bean.Tour;
 
 public class GuideUploadForm {
 	
@@ -15,6 +20,9 @@ public class GuideUploadForm {
 	private int gender;
 	
 	private String description;
+	
+	private List<Tour> tours;
+	private List<GuideHour> guideHour_array;
 
 	public String getFirstname() {
 		return firstname;
@@ -62,6 +70,22 @@ public class GuideUploadForm {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public List<Tour> getTours() {
+		return tours;
+	}
+
+	public void setTours(List<Tour> tours) {
+		this.tours = tours;
+	}
+
+	public List<GuideHour> getGuideHour_array() {
+		return guideHour_array;
+	}
+
+	public void setGuideHour_array(List<GuideHour> guideHour_array) {
+		this.guideHour_array = guideHour_array;
 	}
 		
 }

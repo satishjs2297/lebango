@@ -77,6 +77,10 @@
 	</select>
 	<select id="getToursByCarId" parameterType="java.lang.String"
 		resultType="com.lebango.bean.Tour">
-		select * from tours where INSTR(assign_car_array, #{car_id}) <![CDATA[ > ]]> 0 AND deleted_at IS NULL
+		select * from tours where INSTR(assign_car_array, #{car_id}) <![CDATA[ > ]]> 0 
+	</select>
+	<select id="getToursByGuideId" parameterType="java.lang.String"
+		resultType="com.lebango.bean.Tour">
+		select * from tours where INSTR(assign_guide_array, #{guide_id}) <![CDATA[ > ]]> 0 
 	</select>
 </mapper>

@@ -11,4 +11,5 @@ public interface TourMapper {
 	public Tour getTourByBooking(int booking_id);
 	public Tour getTourByCode(String tour_code);
 	public List<Tour> getToursByCarId(String car_id);
+	public List<Tour> getToursByGuideId(String guide_id);
 }

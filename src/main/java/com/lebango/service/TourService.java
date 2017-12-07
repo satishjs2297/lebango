@@ -40,5 +40,9 @@ public class TourService {
 		return tourMapper.getToursByCarId(car_id);
 	}
 	
+	public List<Tour> getToursByGuideId(String guide_Id) {
+		return tourMapper.getToursByGuideId(guide_Id);
+	}
+	
 	
 }

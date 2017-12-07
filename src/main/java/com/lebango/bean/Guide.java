@@ -3,6 +3,8 @@ package com.lebango.bean;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+import com.lebango.viewmodel.GuideUploadForm;
+
 public class Guide implements Serializable {
 	
 	/**
@@ -118,5 +120,15 @@ public class Guide implements Serializable {
 
 	public void setSupplier_id(int supplier_id) {
 		this.supplier_id = supplier_id;
+	}
+	
+	public GuideUploadForm createGuideUploadForm() {
+		GuideUploadForm gUploadForm = new GuideUploadForm();
+		gUploadForm.setFirstname(firstname);
+		gUploadForm.setLastname(lastname);
+		gUploadForm.setGender(gender);
+		gUploadForm.setBirthday(birthday);
+		gUploadForm.setDescription(description);		
+		return gUploadForm;
 	}
 }

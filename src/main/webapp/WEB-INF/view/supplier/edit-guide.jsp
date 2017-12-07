@@ -3,6 +3,7 @@
 <%@ page session="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ page import="com.lebango.bean.User,com.lebango.bean.Message,java.util.List" %>
 
 <%
@@ -50,7 +51,32 @@
     
     <!-- Custom Theme Style -->
     <link rel="stylesheet" type="text/css" href="<c:url value="/resources/gentel/build/css/custom.css" />">
- 
+  
+  	<style type="text/css">
+  		.btn-file {
+		    position: relative;
+		    overflow: hidden;
+		}
+		.btn-file input[type=file] {
+		    position: absolute;
+		    top: 0;
+		    right: 0;
+		    min-width: 100%;
+		    min-height: 100%;
+		    font-size: 100px;
+		    text-align: right;
+		    filter: alpha(opacity=0);
+		    opacity: 0;
+		    outline: none;
+		    background: white;
+		    cursor: inherit;
+		    display: block;
+		}
+		
+		#img-upload{
+		    width: 30%;
+		}
+  	</style>
   </head>
 
   <body class="nav-md">
@@ -84,10 +110,10 @@
                     </ul>
                   </li>
                   
-                  <li><a><i class="fa fa-user"></i> Guides <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
+                  <li class="active"><a><i class="fa fa-user"></i> Guides <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display:block;">
                       <li><a href="manage-guide">Manage Guide</a></li>
-                      <li><a href="add-guide">Add Guide</a></li>
+                      <li class="current-page"><a href="add-guide">Add Guide</a></li>
                     </ul>
                   </li>
                   
@@ -190,19 +216,149 @@
         </div>
         <!-- /top navigation -->
 
-       <!-- page content -->
-        <div class="right_col" role="main">
-        	  
-        	  <div class="page-title">
-              <div class="title_left">
-                <h3>Detail Booking</h3>
-              </div>
-          </div>
-          
-        	  <div class="clearfix"></div>
-          
-        </div>
         <!-- page content -->
+        <div class="right_col" role="main">
+         	<div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3>Edit Guide</h3>
+              </div>
+
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Fill following form.</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      <li><a class="close-link"><i class="fa fa-close"></i></a>
+                      </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                    <br />
+                     <form:form method="POST" action="register-guide" modelAttribute="guideForm" enctype="multipart/form-data" id="demo-form2" class="form-horizontal form-label-left">
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="firstname">First Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <form:input path="firstname" type="text" id="firstname" class="form-control col-md-7 col-xs-12" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="lastname">Last Name <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <form:input path="lastname" type="text" id="last-name" class="form-control col-md-7 col-xs-12" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <div id="gender" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                               <form:radiobutton path="gender" value="1"/> &nbsp; Male &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                               <form:radiobutton path="gender" value="2"/> Female
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <form:input path="birthday" id="birthday" class="date-picker form-control col-md-7 col-xs-12" type="text" />
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="descripiton" class="control-label col-md-3 col-sm-3 col-xs-12">Description <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <form:input path="description" id="descripiton" class="form-control col-md-7 col-xs-12" type="text" />
+                        </div>
+                      </div>
+					 <c:if test="${not empty guideForm.guideHour_array}">
+					  <div class="form-group">
+							<form:label path="availableDays" class="control-label col-md-3 col-sm-3 col-xs-12">Available Days<span class="required">*</span></form:label>					  
+							<table id="datatable"
+								class="table table-striped table-bordered">
+								<thead>
+									<tr>
+										<th>Start Data</th>
+										<th>End Data</th>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${guideForm.guideHour_array}" var="guideHour">
+										<tr>
+											<td>
+												<label>${guideHour.start_time}</label>
+											</td>
+											<td>
+												<label>${guideHour.end_time}</label>
+											</td>
+										</tr>
+									</c:forEach>	                            								
+								</tbody>
+							</table>
+						</div>
+						</c:if>
+						<c:if test="${not empty guideForm.tours}">
+	                      <div class="form-group">
+	                        <form:label path="tours" class="control-label col-md-3 col-sm-3 col-xs-12">Order List<span class="required">*</span></form:label>
+	                        <div class="col-md-9 col-sm-9 col-xs-12">
+								<table id="datatable"
+									class="table table-striped table-bordered">
+									<thead>
+										<tr>
+											<th>Booking Id</th>
+											<th>Tour Code</th>
+										</tr>
+									</thead>
+									<tbody>
+										<c:forEach items="${guideForm.tours}" var="tour"> 									
+											<tr>
+												<td>${tour.booking_id }</td>
+												<td>${tour.tour_code}</td>
+											</tr>								
+										</c:forEach>
+									</tbody>
+								</table>								
+	                        </div>
+	                      </div>
+                      </c:if>                                                                                      
+                      <div class="form-group">
+                        <label for="photo" class="control-label col-md-3 col-sm-3 col-xs-12">Photo <span class="required">*</span></label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <span class="btn btn-default btn-file">
+				                Browse… <input type="file" name="photo" id="imgInp">
+			                </span>
+			                <br />
+			                <img id='img-upload'/>
+                        </div>
+                      </div>
+                      
+                      <div class="ln_solid"></div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                          <button type="submit" class="btn btn-primary">Cancel</button>
+                          <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                      </div>
+
+                    </form:form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- /page content -->
 
         <!-- footer content -->
         <footer>
@@ -223,9 +379,49 @@
     <script src="<c:url value="/resources/gentel/vendors/fastclick/lib/fastclick.js" />"></script>
     <!-- NProgress -->
     <script src="<c:url value="/resources/gentel/vendors/nprogress/nprogress.js" />"></script>
+ 
+    <!-- bootstrap-daterangepicker -->
+    <script src="<c:url value="/resources/gentel/js/moment/moment.min.js" />"></script>
+    <script src="<c:url value="/resources/gentel/js/datepicker/daterangepicker.js" />"></script>
+    <!-- bootstrap-wysiwyg -->
     
     <!-- Custom Theme Scripts -->
     <script src="<c:url value="/resources/gentel/build/js/custom.min.js" />"></script>
     
+    <script type="text/javascript">
+    <!-- bootstrap-daterangepicker -->
+    $(document).ready(function() {
+      $('#birthday').daterangepicker({
+        singleDatePicker: true,
+        calender_style: "picker_4"
+      }, function(start, end, label) {
+        console.log(start.toISOString(), end.toISOString(), label);
+      });
+    });
+  
+	$(document).ready( function() {
+	    	$(document).on('change', '.btn-file :file', function() {
+			var input = $(this),
+				label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		});
+
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		
+		$("#imgInp").change(function(){
+		    readURL(this);
+		}); 	
+		$("#guideBack").click(function(){
+			window.location.replace('http://localhost:8080/lebango/supplier/manage-guide');
+		});		
+	});
+	</script>
   </body>
 </html>

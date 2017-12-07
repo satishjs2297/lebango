@@ -3,7 +3,6 @@ package com.lebango.controller.supplier;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,15 +17,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.lebango.bean.Car;
-import com.lebango.bean.Document;
 import com.lebango.bean.Guide;
 import com.lebango.bean.User;
+import com.lebango.service.GuideHourService;
 import com.lebango.service.GuideService;
+import com.lebango.service.TourService;
 import com.lebango.service.UserService;
-import com.lebango.util.GlobalConstants;
 import com.lebango.util.Utils;
-import com.lebango.viewmodel.CarEntity;
 import com.lebango.viewmodel.GuideUploadForm;
 
 @Controller
@@ -38,6 +35,12 @@ public class GuideController {
 	
 	@Autowired
 	private GuideService guideService;
+	
+	@Autowired
+	private TourService tourService;
+
+	@Autowired
+	private GuideHourService guideHourService;
 	
 	@RequestMapping(value = "/add-guide")
 	public String showAddGuide(Model model, HttpSession session) {
@@ -95,14 +98,35 @@ public class GuideController {
 		return "redirect:/supplier/add-guide";
 	}
 	
-	@RequestMapping(value = "/edit-guide")
-	public String showEditGuide(Model model, HttpSession session) {
-		
+	@RequestMapping(value = "/view-guide")
+	public String viewCar(Model model, HttpSession session, HttpServletRequest request) {
 		User currentUser = (User) session.getAttribute("currentUser");
 		if (currentUser == null) {
 			return "redirect:/login";
 		}
+
+		if (request.getParameter("id") == null) {
+			return "redirect:/manage-guide";
+		}
+		try {
+			GuideUploadForm guideInfo = getSelectedGuideInfo(request);
+			model.addAttribute("guideForm", guideInfo);
+		} catch (Exception e) {
+			System.err.println("Exception :: "+e);
+			return "redirect:/manage-guide";
+		}
+		return "supplier/view-guide";
+	}
 		
+	@RequestMapping(value = "/edit-guide")
+	public String showEditGuide(Model model, HttpServletRequest request) {
+		
+		User currentUser = (User) request.getSession().getAttribute("currentUser");
+		if (currentUser == null) {
+			return "redirect:/login";
+		}
+		GuideUploadForm guideInfo = getSelectedGuideInfo(request);
+		model.addAttribute("guideForm", guideInfo);
 		return "supplier/edit-guide";
 	}
 	
@@ -120,4 +144,24 @@ public class GuideController {
 		
 		return "supplier/manage-guide";
 	}
+	
+	/*@RequestMapping(value = "/delete-guide")
+	public String deleteGuide(HttpServletRequest request) {
+		User currentUser = (User) request.getSession().getAttribute("currentUser");
+		if (currentUser == null) {
+			return "redirect:/login";
+		}
+		int guide_id = Integer.parseInt(request.getParameter("guide_id"));
+		guideService.deleteGuideById(guide_id);
+		return "supplier/manage-guide";
+	}*/
+	
+	private GuideUploadForm getSelectedGuideInfo(HttpServletRequest request) {
+		int guide_id = Integer.parseInt(request.getParameter("id"));
+		Guide guide = guideService.getById(guide_id);
+		GuideUploadForm uploadForm = guide.createGuideUploadForm();
+		uploadForm.setTours(tourService.getToursByGuideId(String.valueOf(guide_id)));
+		uploadForm.setGuideHour_array(guideHourService.getGuideHour(guide_id));
+		return uploadForm;
+	}	
 }
