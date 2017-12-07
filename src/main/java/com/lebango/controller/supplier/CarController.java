@@ -251,6 +251,18 @@ public class CarController {
 		}
 		return "supplier/edit-car";
 	}
+	
+	@RequestMapping(value = "/delete-car")
+	public String deleteCar(HttpServletRequest request) {
+		User currentUser = (User) request.getSession().getAttribute("currentUser");
+		if (currentUser == null) {
+			return "redirect:/login";
+		}
+		int car_id = Integer.parseInt(request.getParameter("car_id"));
+		carService.deleteCarById(car_id);
+		return "redirect:/supplier/manage-car";
+	}
+	
 	private CarEntity getSelectedCarInfo(HttpServletRequest request) {
 		int car_id = Integer.parseInt(request.getParameter("id"));
 		Car car = carService.getById(car_id);
@@ -269,4 +281,5 @@ public class CarController {
 		temp.setCar(car);
 		return temp;
 	}
+	
 }

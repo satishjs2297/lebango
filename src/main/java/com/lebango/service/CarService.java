@@ -32,12 +32,15 @@ public class CarService {
 	public int getMaxId() {
 		return carMapper.getMaxId();
 	}
-
 	public List<Car> getBySupplierAndSeat(int supplier_id, int seat_num) {
 		Car car = new Car();
 		car.setSupplier_id(supplier_id);
 		car.setSeat(seat_num);
 		
 		return carMapper.getBySupplierAndSeat(car);
+	}
+	
+	public void deleteCarById(int id) {
+		carMapper.deleteCarById(id);
 	}
 }

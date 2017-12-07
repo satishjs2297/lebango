@@ -8,4 +8,5 @@ public interface GuideMapper {
 	void insert(Guide guide);
 	List<Guide> getBySupplier(int supplier_id);
 	Guide getById(int guide_id);
+	void deleteGuideById(int guide_id);
 }

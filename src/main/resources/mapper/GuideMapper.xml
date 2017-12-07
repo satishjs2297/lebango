@@ -17,7 +17,7 @@
 		FROM 
 			guides 
 		WHERE 
-			supplier_id = #{supplier_id} 
+			supplier_id = #{supplier_id} and deleted_at is null
 	</select>
    
     <select id="getById" parameterType="int" resultType="com.lebango.bean.Guide">
@@ -26,7 +26,10 @@
 		FROM 
 			guides 
 		WHERE 
-			id = #{guide_id} 
+			id = #{guide_id} and deleted_at is null
 	</select>
-    
+	
+    <update id="deleteGuideById" parameterType="int" >
+       update guides set deleted_at=CURRENT_DATE() where id = #{guide_id}
+    </update>    
 </mapper>

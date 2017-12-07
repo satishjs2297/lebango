@@ -17,7 +17,7 @@
 		FROM 
 			cars 
 		WHERE 
-			supplier_id = #{supplier_id} 
+			supplier_id = #{supplier_id} and deleted_at is null
 	</select>
    
     <select id="getMaxId" resultType="int">
@@ -33,7 +33,7 @@
 		FROM 
 			cars 
 		WHERE 
-			id = #{id} 
+			id = #{id} and deleted_at is null
 	</select>
 	
 	<select id="getBySupplierAndSeat" parameterType="com.lebango.bean.Car" resultType="com.lebango.bean.Car">
@@ -44,7 +44,12 @@
 		WHERE 
 			supplier_id = #{supplier_id} 
 		AND
-			seat = #{seat}
+			seat = #{seat} and deleted_at is null
 	</select>
+	
+	<update id="deleteCarById" parameterType="int" >
+       update guides set deleted_at=CURRENT_DATE() where id = #{id}
+    </update>    
+
 	
 </mapper>

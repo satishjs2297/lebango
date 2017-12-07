@@ -282,8 +282,8 @@
 	       <div class="modal-dialog" style="color:black;">
 	         <div class="modal-content">
 	         	<!-- Delete Form -->
-	           	<form method="GET" action="delete-guide" id="deleteForm">
-			   		<input type="hidden" id="guide_id" />
+	           	<form method="POST" action="delete-guide" id="deleteForm">
+			   		<input type="hidden" id="guide_id" name="guide_id" />
 			   	</form>
 			   	<!-- /Delete Form -->
 	           <div class="modal-header">
@@ -353,9 +353,9 @@
     	  	$('#deleteModal').modal('show');
       }
         
-      $( "#deletebtn" ).click(function() {
+      $( "#deletebtn" ).click(function() {    	  
     	  	$('#deleteForm').submit();
-    	  });
+      });
     </script>
     
   </body>

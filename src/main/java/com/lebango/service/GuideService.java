@@ -29,4 +29,8 @@ public class GuideService {
 	public Guide getById(int guide_id) {
 		return guideMapper.getById(guide_id);
 	}
+	
+	public void deleteGuideById(int guide_id) {
+		guideMapper.deleteGuideById(guide_id); 
+	}
 }

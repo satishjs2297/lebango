@@ -10,4 +10,5 @@ public interface CarMapper {
 	Car getById(int id);
 	int getMaxId();
 	List<Car> getBySupplierAndSeat(Car car);
+	void deleteCarById(int id);
 }

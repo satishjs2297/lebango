@@ -253,8 +253,8 @@
 	       <div class="modal-dialog" style="color:black;">
 	         <div class="modal-content">
 	         	<!-- Delete Form -->
-	           	<form method="POST" action="delete" id="deleteForm">
-			   		<input type="hidden" id="car_id" />
+	           	<form method="POST" action="delete-car" id="deleteForm">
+			   		<input type="hidden" id="car_id" name="car_id" />
 			   	</form>
 			   	<!-- /Delete Form -->
 	           <div class="modal-header">

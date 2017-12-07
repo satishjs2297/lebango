@@ -145,7 +145,7 @@ public class GuideController {
 		return "supplier/manage-guide";
 	}
 	
-	/*@RequestMapping(value = "/delete-guide")
+	@RequestMapping(value = "/delete-guide")
 	public String deleteGuide(HttpServletRequest request) {
 		User currentUser = (User) request.getSession().getAttribute("currentUser");
 		if (currentUser == null) {
@@ -153,8 +153,8 @@ public class GuideController {
 		}
 		int guide_id = Integer.parseInt(request.getParameter("guide_id"));
 		guideService.deleteGuideById(guide_id);
-		return "supplier/manage-guide";
-	}*/
+		return "redirect:/supplier/manage-guide";
+	}
 	
 	private GuideUploadForm getSelectedGuideInfo(HttpServletRequest request) {
 		int guide_id = Integer.parseInt(request.getParameter("id"));
